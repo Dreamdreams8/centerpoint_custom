@@ -31,9 +31,9 @@ class NuScenesDataset(PointCloudDataset):
     # 修改NumPointFeatures以适应不同维度的点云
     NumPointFeatures = 5  # 默认为4维：x, y, z, intensity
     
-    # # 添加CLASSES属性
-    # CLASSES = ('car', 'truck', 'construction_vehicle', 'bus', 'trailer',
-    #            'barrier', 'motorcycle', 'bicycle', 'pedestrian', 'traffic_cone')
+    # 添加CLASSES属性
+    CLASSES = ('car', 'truck', 'construction_vehicle', 'bus', 'trailer',
+               'barrier', 'motorcycle', 'bicycle', 'pedestrian', 'traffic_cone')
 
     def __init__(
         self,
@@ -59,7 +59,7 @@ class NuScenesDataset(PointCloudDataset):
 
         self._info_path = info_path
         self._class_names = class_names
-        # self.test_mode = test_mode
+        self.test_mode = test_mode
 
         if not hasattr(self, "_nusc_infos"):
             self.load_infos(self._info_path)
@@ -74,12 +74,12 @@ class NuScenesDataset(PointCloudDataset):
         self.version = version
         self.eval_version = "detection_cvpr_2019"
         
-        # # 如果提供了class_names，更新CLASSES属性
-        # if class_names is not None:
-        #     self.CLASSES = class_names
+        # 如果提供了class_names，更新CLASSES属性
+        if class_names is not None:
+            self.CLASSES = class_names
             
-        # # 添加flag属性，用于GroupSampler
-        # self.flag = np.ones(len(self), dtype=np.uint8)
+        # 添加flag属性，用于GroupSampler
+        self.flag = np.ones(len(self), dtype=np.uint8)
 
     def reset(self):
         self.logger.info(f"re-sample {self.frac} frames from full set")
@@ -175,13 +175,13 @@ class NuScenesDataset(PointCloudDataset):
     def get_sensor_data(self, idx):
         info = self._nusc_infos[idx]
         
-        # # 获取点云路径
-        # # lidar_path = Path(self._root_path) / info['lidar_path']
-        # lidar_path = info['lidar_path']   # 使用绝对路径
+        # 获取点云路径
+        # lidar_path = Path(self._root_path) / info['lidar_path']
+        lidar_path = info['lidar_path']   # 使用绝对路径
         
-        # # 确保路径存在
-        # if not lidar_path.exists():
-        #     raise FileNotFoundError(f"Point cloud file not found: {lidar_path}")
+        # 确保路径存在
+        if not lidar_path.exists():
+            raise FileNotFoundError(f"Point cloud file not found: {lidar_path}")
         
         res = {
             "lidar": {
@@ -232,7 +232,7 @@ class NuScenesDataset(PointCloudDataset):
             assert miss == 0
         else:
             dets = [v for _, v in detections.items()]
-            # assert len(detections) == 6008
+            assert len(detections) == 6008
 
         nusc_annos = {
             "results": {},

@@ -2,8 +2,8 @@ from det3d.datasets.nuscenes.nuscenes import NuScenesDataset
 from det3d.datasets.waymo.waymo import WaymoDataset
 
 dataset_factory = {
-    "NuScenesDataset": NuScenesDataset,
-    "WaymoDataset": WaymoDataset,
+    # "NuScenesDataset": NuScenesDataset,
+    # "WaymoDataset": WaymoDataset,
     "NUSC": NuScenesDataset,
     "WAYMO": WaymoDataset
 }

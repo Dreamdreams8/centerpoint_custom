@@ -39,6 +39,6 @@ def convert_npy_to_bin(npyfolder, binfolder):
 if __name__ == '__main__':
     # 示例用法
     convert_npy_to_bin(
-        "/mnt/why/demo/centerpoint/CenterPoint/data/custom_0411_zzg/points_npy",
-        "/mnt/why/demo/centerpoint/CenterPoint/data/custom_0411_zzg/points_bin"
+        "/media/why/4d64b9d8-e7cd-4079-bbb3-646afebfb8d4/centerpoint_custom/data/custom_0411_zzg/points_npy",
+        "/media/why/4d64b9d8-e7cd-4079-bbb3-646afebfb8d4/centerpoint_custom/data/custom_0411_zzg/points"
     )
